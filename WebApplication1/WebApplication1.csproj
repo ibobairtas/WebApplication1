@@ -230,7 +230,6 @@
     <Content Include="Views\Matakuliah\Index.cshtml" />
     <Content Include="Views\Nilai\Create.cshtml" />
     <Content Include="Views\Nilai\Details.cshtml" />
-    <Content Include="Views\Nilai\Edit.cshtml" />
     <Content Include="Views\Nilai\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

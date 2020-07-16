@@ -60,17 +60,9 @@
                 @Html.DisplayFor(modelItem => item.nilai)
             </td>
             <td>
-                <button onclick="location.href='@Url.Action("Edit", "Nilai", new { id = item.id_nilai})';return false;" class="btn btn-primary">
-                    <i class="fa fa-marker fa-lg"></i>
-                    Edit
-                </button>
                 <button onclick="location.href='@Url.Action("Details", "Nilai", new { id = item.id_nilai})';return false;" class="btn btn-warning">
                     <i class="far fa-file-alt"></i>
                     Detail
-                </button>
-                <button onclick="location.href='@Url.Action("Delete", "Nilai", new { id = item.id_nilai})';return confirm('Yakin akan menghapus data ?');" class="btn btn-danger">
-                    <i class="fa fa-trash-alt fa-lg"></i>
-                    Hapus
                 </button>
             </td>
         </tr>
