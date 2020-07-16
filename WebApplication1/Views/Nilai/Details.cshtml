@@ -3,14 +3,14 @@
 @{
     ViewBag.Title = "Details";
 }
-
+<br />
 <h4>Detail Nilai</h4>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Nama Mahasiswa
+            @Html.LabelFor(model => model.tabel_mahasiswa.nama_mahasiswa, "Nama Mahasiswa : ", htmlAttributes: new { @class = "control-label col-md-2; wraptext" })
         </dt>
 
         <dd>
@@ -18,7 +18,7 @@
         </dd>
 
         <dt>
-            Nama Matakuliah
+            @Html.LabelFor(model => model.tabel_matakuliah.nama_matakuliah, "Nama Matakuliah : ", htmlAttributes: new { @class = "control-label col-md-2; wraptext" })
         </dt>
 
         <dd>
@@ -26,7 +26,7 @@
         </dd>
 
         <dt>
-            Nilai
+            @Html.LabelFor(model => model.nilai, "Nilai : ", htmlAttributes: new { @class = "control-label col-md-2; wraptext" })
         </dt>
 
         <dd>
@@ -35,6 +35,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_nilai }) |
-    @Html.ActionLink("Kembali", "Index")
+    <button onclick="location.href='@Url.Action("Edit", "Nilai", new { id = Model.id_nilai})';return false;" class="btn btn-primary">
+        <i class="fa fa-marker fa-lg"></i>
+        Edit
+    </button>
+    <button onclick="location.href='@Url.Action("Index", "Nilai")';return false" class="btn btn-danger">Kembali</button>
 </p>

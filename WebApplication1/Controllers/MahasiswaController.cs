@@ -20,27 +20,12 @@ namespace WebApplication1.Controllers
         private DBMahasiswaEntities1 db = new DBMahasiswaEntities1();
 
         // GET: Mahasiswa
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string sortOrder)
         {
             var mahasiswa = db.tabel_mahasiswa.OrderBy(m => m.id_mahasiswa);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(mahasiswa.ToPagedList(pageNumber, pageSize));
-        }
-
-        // GET: Mahasiswa/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tabel_mahasiswa tabel_mahasiswa = await db.tabel_mahasiswa.FindAsync(id);
-            if (tabel_mahasiswa == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tabel_mahasiswa);
         }
 
         // GET: Mahasiswa/Create
@@ -95,6 +80,23 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             return View(tabel_mahasiswa);
+        }
+
+        // GET: Mahasiswa/Delete/5
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            tabel_mahasiswa tabel_mahasiswa = await db.tabel_mahasiswa.FindAsync(id);
+            if (tabel_mahasiswa == null)
+            {
+                return HttpNotFound();
+            }
+            db.tabel_mahasiswa.Remove(tabel_mahasiswa);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

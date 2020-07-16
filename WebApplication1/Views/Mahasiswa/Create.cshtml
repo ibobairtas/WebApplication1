@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
-
+<br />
 <h4>Tambah Data</h4>
 
 @using (Html.BeginForm()) 
@@ -31,14 +31,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Simpan" class="btn btn-default" />
+                <input type="submit" value="Simpan" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Kembali", "Index")
+    <button onclick="location.href='@Url.Action("Index", "Mahasiswa")';return false" class="btn btn-danger">Kembali</button>
 </div>
 
 @section Scripts {

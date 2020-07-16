@@ -5,25 +5,35 @@
     ViewBag.Title = "Index";
 }
 
-<h4>Form Mahasiswa</h4>
-
+<br />
+<h4><i class="fas fa-user-graduate"></i>&nbsp; Mahasiswa</h4>
+<br />
 <p>
-    @Html.ActionLink("Tambah Data", "Create")
+    <button onclick="location.href='@Url.Action("Create", "Mahasiswa")';return false;" class="btn btn-success">Tambah Data</button>
 </p>
-<table class="table">
+<table class="table table-bordered table-responsive table-hover">
     <tr>
+        <th>
+            No.
+        </th>
         <th>
             ID Mahasiswa
         </th>
         <th>
             Nama Mahasiswa
         </th>
-        <th></th>
+        <th>
+            Action
+        </th>
     </tr>
 
+    @{int rowNo = 0;}
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @(rowNo += 1)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.id_mahasiswa)
             </td>
@@ -31,14 +41,22 @@
                 @Html.DisplayFor(modelItem => item.nama_mahasiswa)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id_mahasiswa }) |
-                @Html.ActionLink("Hapus", "Delete", new { id = item.id_mahasiswa }, new { onclick = "return confirm('Yakin akan menghapus data?');" })
+                <button onclick="location.href='@Url.Action("Edit", "Mahasiswa", new { id = item.id_mahasiswa})';return false;" class="btn btn-primary">
+                    <i class="fa fa-marker fa-lg"></i>
+                    Edit
+                </button>
+                <button onclick="location.href='@Url.Action("Delete", "Mahasiswa", new { id = item.id_mahasiswa})';return confirm('Yakin akan menghapus data ?');" class="btn btn-danger">
+                    <i class="fa fa-trash-alt fa-lg"></i>
+                    Hapus
+                </button>
             </td>
         </tr>
     }
 
 </table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<div style="float:right">
+    Total Record (@Model.Count)
+</div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount 
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

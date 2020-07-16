@@ -79,6 +79,22 @@ namespace WebApplication1.Controllers
             return View(tabel_matakuliah);
         }
 
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            tabel_matakuliah tabel_matakuliah = await db.tabel_matakuliah.FindAsync(id);
+            if (tabel_matakuliah == null)
+            {
+                return HttpNotFound();
+            }
+            db.tabel_matakuliah.Remove(tabel_matakuliah);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

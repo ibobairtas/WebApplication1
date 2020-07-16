@@ -5,61 +5,81 @@
     ViewBag.Title = "Index";
 }
 
-<h4>Form Nilai</h4>
-
-<p>
-    @Html.ActionLink("Tambah Data", "Create")
-</p>
+<br />
+<h4><i class="fas fa-book-open"></i>&nbsp; Nilai</h4>
+<br />
 
 @using (Html.BeginForm())
 {
     <p>
         @Html.TextBox("search")
-        <input type="submit" value="Cari"/>
+        <input type="submit" value="Cari" class="btn btn-primary" />
+        <button onclick="location.href='@Url.Action("Create", "Nilai")';return false;" class="btn btn btn-success">Tambah Data</button>
     </p>
 }
-    <table class="table">
+
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>
+            No.
+        </th>
+        <th>
+            ID Nilai
+        </th>
+        <th>
+            ID Mahasiswa
+        </th>
+        <th>
+            ID Matakuliah
+        </th>
+        <th>
+            Nilai
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+
+    @{int rowNo = 0;}
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                ID Nilai
-            </th>
-            <th>
-                ID Mahasiswa
-            </th>
-            <th>
-                ID Matakuliah
-            </th>
-            <th>
-                Nilai
-            </th>
-            <th></th>
+            <td>
+                @(rowNo += 1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_nilai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_mahasiswa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_matakuliah)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nilai)
+            </td>
+            <td>
+                <button onclick="location.href='@Url.Action("Edit", "Nilai", new { id = item.id_nilai})';return false;" class="btn btn-primary">
+                    <i class="fa fa-marker fa-lg"></i>
+                    Edit
+                </button>
+                <button onclick="location.href='@Url.Action("Details", "Nilai", new { id = item.id_nilai})';return false;" class="btn btn-warning">
+                    <i class="far fa-file-alt"></i>
+                    Detail
+                </button>
+                <button onclick="location.href='@Url.Action("Delete", "Nilai", new { id = item.id_nilai})';return confirm('Yakin akan menghapus data ?');" class="btn btn-danger">
+                    <i class="fa fa-trash-alt fa-lg"></i>
+                    Hapus
+                </button>
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id_nilai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id_mahasiswa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id_matakuliah)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nilai)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id_nilai }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id_nilai }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id_nilai }, new { onclick = "return confirm('Yakin akan menghapus data?');" })
-                </td>
-            </tr>
-        }
+</table>
+<div style="float:right">
+    Total Record (@Model.Count)
+</div>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-    </table>
-    <br />
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

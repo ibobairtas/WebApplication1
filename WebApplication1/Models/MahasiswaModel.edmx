@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBMahasiswaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBMahasiswaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tabel_mahasiswa">
           <Key>
             <PropertyRef Name="id_mahasiswa" />
@@ -29,7 +29,9 @@
           <Property Name="nilai" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_tabel_nilai_tabel_mahasiswa">
-          <End Role="tabel_mahasiswa" Type="Self.tabel_mahasiswa" Multiplicity="1" />
+          <End Role="tabel_mahasiswa" Type="Self.tabel_mahasiswa" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tabel_mahasiswa">
@@ -41,7 +43,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tabel_nilai_tabel_matakuliah">
-          <End Role="tabel_matakuliah" Type="Self.tabel_matakuliah" Multiplicity="1" />
+          <End Role="tabel_matakuliah" Type="Self.tabel_matakuliah" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tabel_matakuliah">
@@ -65,8 +69,7 @@
             <End Role="tabel_nilai" EntitySet="tabel_nilai" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBMahasiswaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -98,8 +101,10 @@
           <NavigationProperty Name="tabel_matakuliah" Relationship="Self.FK_tabel_nilai_tabel_matakuliah" FromRole="tabel_nilai" ToRole="tabel_matakuliah" />
         </EntityType>
         <Association Name="FK_tabel_nilai_tabel_mahasiswa">
-          <End Role="tabel_mahasiswa" Type="Self.tabel_mahasiswa" Multiplicity="1" />
-          <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" />
+          <End Role="tabel_mahasiswa" Type="Self.tabel_mahasiswa" Multiplicity="1" >
+          </End>
+          <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" >
+          </End>
           <ReferentialConstraint>
             <Principal Role="tabel_mahasiswa">
               <PropertyRef Name="id_mahasiswa" />

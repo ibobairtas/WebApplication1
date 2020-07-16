@@ -133,15 +133,6 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tabel_nilai);
-        }
-
-        // POST: Nilai/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            tabel_nilai tabel_nilai = await db.tabel_nilai.FindAsync(id);
             db.tabel_nilai.Remove(tabel_nilai);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
