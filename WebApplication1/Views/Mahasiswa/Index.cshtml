@@ -1,0 +1,44 @@
+﻿@model PagedList.IPagedList<WebApplication1.Models.tabel_mahasiswa>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>Form Mahasiswa</h4>
+
+<p>
+    @Html.ActionLink("Tambah Data", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID Mahasiswa
+        </th>
+        <th>
+            Nama Mahasiswa
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_mahasiswa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nama_mahasiswa)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id_mahasiswa }) |
+                @Html.ActionLink("Hapus", "Delete", new { id = item.id_mahasiswa }, new { onclick = "return confirm('Yakin akan menghapus data?');" })
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBMahasiswaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tabel_mahasiswa">
+          <Key>
+            <PropertyRef Name="id_mahasiswa" />
+          </Key>
+          <Property Name="id_mahasiswa" Type="int" Nullable="false" />
+          <Property Name="nama_mahasiswa" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tabel_matakuliah">
+          <Key>
+            <PropertyRef Name="id_matakuliah" />
+          </Key>
+          <Property Name="id_matakuliah" Type="int" Nullable="false" />
+          <Property Name="nama_matakuliah" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tabel_nilai">
+          <Key>
+            <PropertyRef Name="id_nilai" />
+          </Key>
+          <Property Name="id_nilai" Type="int" Nullable="false" />
+          <Property Name="id_mahasiswa" Type="int" Nullable="false" />
+          <Property Name="id_matakuliah" Type="int" Nullable="false" />
+          <Property Name="nilai" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tabel_nilai_tabel_mahasiswa">
+          <End Role="tabel_mahasiswa" Type="Self.tabel_mahasiswa" Multiplicity="1" />
+          <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tabel_mahasiswa">
+              <PropertyRef Name="id_mahasiswa" />
+            </Principal>
+            <Dependent Role="tabel_nilai">
+              <PropertyRef Name="id_mahasiswa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tabel_nilai_tabel_matakuliah">
+          <End Role="tabel_matakuliah" Type="Self.tabel_matakuliah" Multiplicity="1" />
+          <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tabel_matakuliah">
+              <PropertyRef Name="id_matakuliah" />
+            </Principal>
+            <Dependent Role="tabel_nilai">
+              <PropertyRef Name="id_matakuliah" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBMahasiswaModel1StoreContainer">
+          <EntitySet Name="tabel_mahasiswa" EntityType="Self.tabel_mahasiswa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tabel_matakuliah" EntityType="Self.tabel_matakuliah" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tabel_nilai" EntityType="Self.tabel_nilai" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tabel_nilai_tabel_mahasiswa" Association="Self.FK_tabel_nilai_tabel_mahasiswa">
+            <End Role="tabel_mahasiswa" EntitySet="tabel_mahasiswa" />
+            <End Role="tabel_nilai" EntitySet="tabel_nilai" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tabel_nilai_tabel_matakuliah" Association="Self.FK_tabel_nilai_tabel_matakuliah">
+            <End Role="tabel_matakuliah" EntitySet="tabel_matakuliah" />
+            <End Role="tabel_nilai" EntitySet="tabel_nilai" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBMahasiswaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tabel_mahasiswa">
+          <Key>
+            <PropertyRef Name="id_mahasiswa" />
+          </Key>
+          <Property Name="id_mahasiswa" Type="Int32" Nullable="false" />
+          <Property Name="nama_mahasiswa" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tabel_nilai" Relationship="Self.FK_tabel_nilai_tabel_mahasiswa" FromRole="tabel_mahasiswa" ToRole="tabel_nilai" />
+        </EntityType>
+        <EntityType Name="tabel_matakuliah">
+          <Key>
+            <PropertyRef Name="id_matakuliah" />
+          </Key>
+          <Property Name="id_matakuliah" Type="Int32" Nullable="false" />
+          <Property Name="nama_matakuliah" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tabel_nilai" Relationship="Self.FK_tabel_nilai_tabel_matakuliah" FromRole="tabel_matakuliah" ToRole="tabel_nilai" />
+        </EntityType>
+        <EntityType Name="tabel_nilai">
+          <Key>
+            <PropertyRef Name="id_nilai" />
+          </Key>
+          <Property Name="id_nilai" Type="Int32" Nullable="false" />
+          <Property Name="id_mahasiswa" Type="Int32" Nullable="false" />
+          <Property Name="id_matakuliah" Type="Int32" Nullable="false" />
+          <Property Name="nilai" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tabel_mahasiswa" Relationship="Self.FK_tabel_nilai_tabel_mahasiswa" FromRole="tabel_nilai" ToRole="tabel_mahasiswa" />
+          <NavigationProperty Name="tabel_matakuliah" Relationship="Self.FK_tabel_nilai_tabel_matakuliah" FromRole="tabel_nilai" ToRole="tabel_matakuliah" />
+        </EntityType>
+        <Association Name="FK_tabel_nilai_tabel_mahasiswa">
+          <End Role="tabel_mahasiswa" Type="Self.tabel_mahasiswa" Multiplicity="1" />
+          <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tabel_mahasiswa">
+              <PropertyRef Name="id_mahasiswa" />
+            </Principal>
+            <Dependent Role="tabel_nilai">
+              <PropertyRef Name="id_mahasiswa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tabel_nilai_tabel_matakuliah">
+          <End Role="tabel_matakuliah" Type="Self.tabel_matakuliah" Multiplicity="1" />
+          <End Role="tabel_nilai" Type="Self.tabel_nilai" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tabel_matakuliah">
+              <PropertyRef Name="id_matakuliah" />
+            </Principal>
+            <Dependent Role="tabel_nilai">
+              <PropertyRef Name="id_matakuliah" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBMahasiswaEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tabel_mahasiswa" EntityType="Self.tabel_mahasiswa" />
+          <EntitySet Name="tabel_matakuliah" EntityType="Self.tabel_matakuliah" />
+          <EntitySet Name="tabel_nilai" EntityType="Self.tabel_nilai" />
+          <AssociationSet Name="FK_tabel_nilai_tabel_mahasiswa" Association="Self.FK_tabel_nilai_tabel_mahasiswa">
+            <End Role="tabel_mahasiswa" EntitySet="tabel_mahasiswa" />
+            <End Role="tabel_nilai" EntitySet="tabel_nilai" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tabel_nilai_tabel_matakuliah" Association="Self.FK_tabel_nilai_tabel_matakuliah">
+            <End Role="tabel_matakuliah" EntitySet="tabel_matakuliah" />
+            <End Role="tabel_nilai" EntitySet="tabel_nilai" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBMahasiswaModel1StoreContainer" CdmEntityContainer="DBMahasiswaEntities1">
+          <EntitySetMapping Name="tabel_mahasiswa">
+            <EntityTypeMapping TypeName="DBMahasiswaModel1.tabel_mahasiswa">
+              <MappingFragment StoreEntitySet="tabel_mahasiswa">
+                <ScalarProperty Name="id_mahasiswa" ColumnName="id_mahasiswa" />
+                <ScalarProperty Name="nama_mahasiswa" ColumnName="nama_mahasiswa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tabel_matakuliah">
+            <EntityTypeMapping TypeName="DBMahasiswaModel1.tabel_matakuliah">
+              <MappingFragment StoreEntitySet="tabel_matakuliah">
+                <ScalarProperty Name="id_matakuliah" ColumnName="id_matakuliah" />
+                <ScalarProperty Name="nama_matakuliah" ColumnName="nama_matakuliah" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tabel_nilai">
+            <EntityTypeMapping TypeName="DBMahasiswaModel1.tabel_nilai">
+              <MappingFragment StoreEntitySet="tabel_nilai">
+                <ScalarProperty Name="id_nilai" ColumnName="id_nilai" />
+                <ScalarProperty Name="id_mahasiswa" ColumnName="id_mahasiswa" />
+                <ScalarProperty Name="id_matakuliah" ColumnName="id_matakuliah" />
+                <ScalarProperty Name="nilai" ColumnName="nilai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

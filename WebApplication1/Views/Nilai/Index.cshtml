@@ -1,0 +1,65 @@
+﻿@model PagedList.IPagedList<WebApplication1.Models.tabel_nilai>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>Form Nilai</h4>
+
+<p>
+    @Html.ActionLink("Tambah Data", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("search")
+        <input type="submit" value="Cari"/>
+    </p>
+}
+    <table class="table">
+        <tr>
+            <th>
+                ID Nilai
+            </th>
+            <th>
+                ID Mahasiswa
+            </th>
+            <th>
+                ID Matakuliah
+            </th>
+            <th>
+                Nilai
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_nilai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_mahasiswa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_matakuliah)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nilai)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id_nilai }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id_nilai }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id_nilai }, new { onclick = "return confirm('Yakin akan menghapus data?');" })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

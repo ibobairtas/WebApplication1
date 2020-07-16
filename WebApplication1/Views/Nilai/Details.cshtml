@@ -1,0 +1,40 @@
+﻿@model WebApplication1.Models.tabel_nilai
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h4>Detail Nilai</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nama Mahasiswa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tabel_mahasiswa.nama_mahasiswa)
+        </dd>
+
+        <dt>
+            Nama Matakuliah
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tabel_matakuliah.nama_matakuliah)
+        </dd>
+
+        <dt>
+            Nilai
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nilai)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_nilai }) |
+    @Html.ActionLink("Kembali", "Index")
+</p>
